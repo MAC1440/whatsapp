@@ -36,7 +36,7 @@ const LandingPage = () => {
               <div className="text-blue-500">{i.city}</div>
             </div>
           ))
-        : !isLoading && <p>Something went wrong!</p>}
+        : !isLoading && <p>Something went wrong!!</p>}
     </div>
   );
 };
