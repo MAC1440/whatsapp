@@ -21,6 +21,9 @@ export default function Document() {
               <li className="cursor-pointer">
                 <Link href={"/among-us"}>Among Us 🛸</Link>
               </li>
+              <li className="cursor-pointer">
+                <Link href={"/api/hello"}>API ⚙</Link>
+              </li>
             </ul>
           </nav>
         </main>

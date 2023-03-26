@@ -28,12 +28,12 @@ const LandingPage = () => {
       {data?.length
         ? data?.map((i: any) => (
             <div
-              key={Math.random()}
+              key={i.id}
               className="bg-orange-900 m-3 p-1 rounded-lg "
               style={{ width: 200 }}
             >
               <div className="text-blue-200 font-medium">{i.name}</div>
-              <div className="text-blue-500">{i.city}</div>
+              <div className="text-blue-500">{i.age}</div>
             </div>
           ))
         : !isLoading && <p>Something went wrong!!</p>}
