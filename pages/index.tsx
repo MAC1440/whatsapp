@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import store from "@/store/store";
 import LandingPage from "./home";
 import Link from "next/link";
+import Navbar from "@/components/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +18,6 @@ export default function Home() {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-
         <LandingPage />
       </>
     </Provider>

@@ -1,55 +1,76 @@
-import { useGetContentQuery, useGetPostsQuery } from "@/store/api/api-slice";
+import Form from "@/components/form";
+import ListView from "@/components/list-view";
+import {
+  useGetBooksQuery,
+  useDeleteBookMutation,
+} from "@/store/api/content/bookSlice";
+import {
+  useDeleteMovieMutation,
+  useGetMoviesQuery,
+} from "@/store/api/content/movieSlice";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import React, { useState } from "react";
-import { decremented, incremented } from "../../store/demo/demo-slice";
 
 const LandingPage = () => {
-  const { value } = useAppSelector((state) => state.demo);
   const dispatch = useAppDispatch();
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState("books");
 
   const {
-    status: status1,
-    data: postsData,
-    isLoading: postsLoading,
-    error: postsError,
-  } = useGetPostsQuery({});
+    status,
+    data: books,
+    isLoading: booksLoading,
+    error: booksError,
+    refetch: refetchBooks,
+  } = useGetBooksQuery({});
 
-  const {
-    status: status4,
-    data: contents,
-    isLoading: contentLoading,
-    error: contentError,
-  } = useGetContentQuery(content);
+  const { data: movies, refetch: refetchMovies } = useGetMoviesQuery({});
 
-  console.log();
+  const [bookId] = useDeleteBookMutation();
+  const [movieId] = useDeleteMovieMutation();
+
   return (
-    <div>
-      <p>{status1}</p>
-      <button
-        className="bg-indigo-500 p-3 text-white text-sm rounded-md shadow mx-1"
-        onClick={() => setContent("books")}
-      >
-        Books -- {content}
-      </button>
-      <button
-        className="bg-indigo-500 p-3 text-white text-sm rounded-md shadow mx-1"
-        onClick={() => setContent("movies")}
-      >
-        Movies -- {content}
-      </button>
-      {contents?.length
-        ? contents?.map((i: any) => (
-            <div
-              key={i.id}
-              className="bg-orange-900 m-3 p-1 rounded-lg "
-              style={{ width: 200 }}
-            >
-              <div className="text-blue-200 font-medium">{i.name}</div>
-              <div className="text-blue-500">{i.author || i.director}</div>
-            </div>
-          ))
-        : !contentLoading && <p>Something went wrong!!</p>}
+    <div className="flex justify-center h-screen mt-10 flex-col items-center gap-5">
+      <div className="">
+        <button
+          className=" p-3 text-white text-sm rounded-md shadow mx-10 
+          bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500"
+          onClick={() => setContent("books")}
+        >
+          Get Books
+        </button>
+        <button
+          className=" p-3 text-white text-sm rounded-md shadow mx-10
+          bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500"
+          onClick={() => setContent("movies")}
+        >
+          Get Movies
+        </button>
+      </div>
+      <div>
+        <div
+          // style={{ height: "370px", width: "500px", overflow: "auto none" }}
+          className="flex justify-center  p-1 bg-gradient-to-r from-cyan-500 to-blue-500 p-1 rounded-lg"
+        >
+          <ListView
+            listType={content}
+            bookData={books}
+            moviesData={movies}
+            bookId={bookId}
+            movieId={movieId}
+            // isLoading={}
+            // hasError={}
+          />
+        </div>
+
+        <div className="flex gap-5 w-100  justify-center rounded-lg mt-3">
+          <div className="p-2">
+            <Form title1="Book" title2="Author" apiName="books" />
+          </div>
+          <div className="p-2">
+            <Form title1="Movie" title2="Director" apiName="movies" />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
