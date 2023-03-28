@@ -2,12 +2,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const apiSlice = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://mocki.io/v1" }),
-  endpoints: (builder) => ({
-    getPosts: builder.query({
-      query: () => "/d4867d8b-b5d5-4a48-a4ab-79131b5809b8",
-    }),
-  }),
+  //using builtin api local hardcoded server
+  // baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3005/" }),
+  tagTypes: ["books", "movies"],
+  endpoints: (builder) => ({}),
 });
-
-export const { useGetPostsQuery } = apiSlice;
