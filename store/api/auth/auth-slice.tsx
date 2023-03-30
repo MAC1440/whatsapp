@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const authCheckSlice = createSlice({
   name: "counter",
   initialState: {
-    value: 0,
+    value: 192,
   },
   reducers: {
     incremented: (state) => {
@@ -44,7 +44,7 @@ export const authSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["users"],
     }),
-    editUser: builder.mutation({
+    sendMessageToUser: builder.mutation({
       query: ({ id, ...body }) => ({
         url: `/users/${id}.json`,
         method: "PATCH",
@@ -64,6 +64,6 @@ export const authSlice = apiSlice.injectEndpoints({
 export const {
   useGetUsersQuery,
   usePostUsersMutation,
-  useEditUserMutation,
+  useSendMessageToUserMutation,
   useDeleteUserMutation,
 } = authSlice;

@@ -18,7 +18,10 @@ const Navbar = () => {
           <Link href="/users">Users 🧍‍♂️🧍‍♂️</Link>
         </li>
         <li className="cursor-pointer">
-          <Link href="/api/hello">API ⚙</Link>
+          <Link href="/login">Login</Link>
+        </li>
+        <li className="cursor-pointer">
+          <Link href="/signup">Sign Up</Link>
         </li>
       </ul>
     </nav>

@@ -3,7 +3,10 @@ import React from "react";
 const UsersList = (props: any) => {
   const { users } = props;
   return (
-    <div>
+    <div
+      className="border p-1 rounded-lg"
+      style={{ height: "300px", overflow: "auto" }}
+    >
       {users?.length ? (
         users?.map((user: any, index: number) => (
           <div key={user.userName} className="text-sm my-2 border rounded-md ">
