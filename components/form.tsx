@@ -1,4 +1,7 @@
-import { usePostBooksMutation } from "@/store/api/content/bookSlice";
+import {
+  useGetBooksQuery,
+  usePostBooksMutation,
+} from "@/store/api/content/bookSlice";
 import { usePostMoviesMutation } from "@/store/api/content/movieSlice";
 import React, { useState } from "react";
 
@@ -12,6 +15,8 @@ const Form = (props: any) => {
   const [postBook, { isLoading }] = usePostBooksMutation();
   const [postMovie] = usePostMoviesMutation();
 
+  const { refetch: refetchBooks } = useGetBooksQuery({});
+
   const submitHandler = (e: any) => {
     e.preventDefault();
     const postingData = {
@@ -20,6 +25,7 @@ const Form = (props: any) => {
     };
     apiName === "books" && postBook(postingData);
     apiName === "movies" && postMovie(postingData);
+    refetchBooks();
   };
 
   const changeHandler = (e: any) => {

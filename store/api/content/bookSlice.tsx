@@ -9,23 +9,18 @@ export interface IbooksBody {
 export const bookSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getBooks: builder.query({
-      // query: (content) => `/content?content=${content}`,
-      // query: (content) => `/${content}`,
-      query: () => `/books`,
-      providesTags: (result) =>
-        // is result available?
-        result
-          ? // successful query
-            [
-              ...result.map(({ id }: any) => ({ type: "books", id })),
-              { type: "books", id: "book" },
-            ]
-          : // an error occurred, but we still want to refetch this query when `{ type: 'books', id: 'book' }` is invalidated
-            [{ type: "books", id: "book" }],
+      query: () => `/books.json`,
+      // providesTags: (result: any) =>
+      // result
+      //   ? [
+      //       ...result?.map(({ id }: any) => ({ type: "books", id })),
+      //       { type: "books", id: "book" },
+      //     ]
+      //   : [{ type: "books", id: "book" }],
     }),
     postBooks: builder.mutation({
       query: (body) => ({
-        url: `/books`,
+        url: `/books.json`,
         method: "POST",
         body,
       }),
@@ -33,14 +28,14 @@ export const bookSlice = apiSlice.injectEndpoints({
     }),
     editBook: builder.mutation({
       query: ({ id, ...body }) => ({
-        url: `/books/${id}`,
+        url: `/books/${id}.json`,
         method: "PATCH",
         body,
       }),
     }),
     deleteBook: builder.mutation({
       query: (id) => ({
-        url: `/books/${id}`,
+        url: `/books/${id}.json`,
         method: "DELETE",
       }),
       invalidatesTags: [{ type: "books", id: "book" }],

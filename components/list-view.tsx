@@ -18,7 +18,7 @@ const ListView = (props: any) => {
       {(listType === "books" ? bookData : moviesData)?.length
         ? (listType === "books" ? bookData : moviesData)?.map((i: any) => (
             <div
-              key={i?.id}
+              key={i?.title + Math.random()}
               className="bg-gradient-to-r from-blue-500 to-blue-100/[.1] m-3 p-1 rounded-lg text-center"
               style={{ width: 200 }}
             >

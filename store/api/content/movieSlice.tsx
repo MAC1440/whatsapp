@@ -5,21 +5,18 @@ export const moviesSlice = apiSlice.injectEndpoints({
     getMovies: builder.query({
       // query: (content) => `/content?content=${content}`,
       //   query: (content) => `/${content}`,
-      query: () => "/movies",
-      providesTags: (result) =>
-        // is result available?
-        result
-          ? // successful query
-            [
-              ...result.map(({ id }: any) => ({ type: "movies", id })),
-              { type: "movies", id: "movie" },
-            ]
-          : // an error occurred, but we still want to refetch this query when `{ type: 'movies', id: 'movie' }` is invalidated
-            [{ type: "movies", id: "movie" }],
+      query: () => "/movies.json",
+      // providesTags: (result: any) =>
+      //   result
+      //     ? [
+      //         ...result?.map(({ id }: any) => ({ type: "movies", id })),
+      //         { type: "movies", id: "movie" },
+      //       ]
+      //     : [{ type: "movies", id: "movie" }],
     }),
     postMovies: builder.mutation({
       query: (body) => ({
-        url: `/movies`,
+        url: `/movies.json`,
         method: "POST",
         body,
       }),
@@ -27,14 +24,14 @@ export const moviesSlice = apiSlice.injectEndpoints({
     }),
     editMovie: builder.mutation({
       query: ({ id, ...body }) => ({
-        url: `/movies/${id}`,
+        url: `/movies/${id}.json`,
         method: "PATCH",
         body,
       }),
     }),
     deleteMovie: builder.mutation({
       query: (id) => ({
-        url: `/movies/${id}`,
+        url: `/movies/${id}.json`,
         method: "DELETE",
       }),
       invalidatesTags: [{ type: "movies", id: "movie" }],
