@@ -3,11 +3,11 @@ import ListView from "@/components/list-view";
 import {
   useGetBooksQuery,
   useDeleteBookMutation,
-} from "@/store/api/content/bookSlice";
+} from "@/store/api/content/book-slice";
 import {
   useDeleteMovieMutation,
   useGetMoviesQuery,
-} from "@/store/api/content/movieSlice";
+} from "@/store/api/content/movie-slice";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import React, { useState } from "react";
 
@@ -34,14 +34,20 @@ const LandingPage = () => {
         <button
           className=" p-3 text-white text-sm rounded-md shadow mx-10 
           bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500"
-          onClick={() => setContent("books")}
+          onClick={() => {
+            setContent("books");
+            // refetchBooks();
+          }}
         >
           Get Books
         </button>
         <button
           className=" p-3 text-white text-sm rounded-md shadow mx-10
           bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500"
-          onClick={() => setContent("movies")}
+          onClick={() => {
+            setContent("movies");
+            // refetchMovies();
+          }}
         >
           Get Movies
         </button>

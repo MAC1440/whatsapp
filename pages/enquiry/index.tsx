@@ -1,4 +1,4 @@
-import { usePostBooksMutation } from "@/store/api/content/bookSlice";
+import { usePostBooksMutation } from "@/store/api/content/book-slice";
 import React, { useState } from "react";
 
 const Enquiry = () => {

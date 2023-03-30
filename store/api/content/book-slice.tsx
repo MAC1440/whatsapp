@@ -10,13 +10,19 @@ export const bookSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getBooks: builder.query({
       query: () => `/books.json`,
-      // providesTags: (result: any) =>
-      // result
-      //   ? [
-      //       ...result?.map(({ id }: any) => ({ type: "books", id })),
-      //       { type: "books", id: "book" },
-      //     ]
-      //   : [{ type: "books", id: "book" }],
+      transformResponse: (response: any) => {
+        let loadedBooks = [];
+        for (const key in response) {
+          loadedBooks.push({
+            id: key,
+            name: response[key].name,
+            title: response[key].title,
+          });
+        }
+        console.log(loadedBooks);
+        return loadedBooks;
+      },
+      providesTags: ["books"],
     }),
     postBooks: builder.mutation({
       query: (body) => ({
@@ -24,7 +30,7 @@ export const bookSlice = apiSlice.injectEndpoints({
         method: "POST",
         body,
       }),
-      invalidatesTags: [{ type: "books", id: "book" }],
+      invalidatesTags: ["books"],
     }),
     editBook: builder.mutation({
       query: ({ id, ...body }) => ({
@@ -38,7 +44,7 @@ export const bookSlice = apiSlice.injectEndpoints({
         url: `/books/${id}.json`,
         method: "DELETE",
       }),
-      invalidatesTags: [{ type: "books", id: "book" }],
+      invalidatesTags: ["books"],
     }),
   }),
 });

@@ -1,8 +1,8 @@
 import {
   useGetBooksQuery,
   usePostBooksMutation,
-} from "@/store/api/content/bookSlice";
-import { usePostMoviesMutation } from "@/store/api/content/movieSlice";
+} from "@/store/api/content/book-slice";
+import { usePostMoviesMutation } from "@/store/api/content/movie-slice";
 import React, { useState } from "react";
 
 const Form = (props: any) => {
@@ -25,7 +25,7 @@ const Form = (props: any) => {
     };
     apiName === "books" && postBook(postingData);
     apiName === "movies" && postMovie(postingData);
-    refetchBooks();
+    // refetchBooks();
   };
 
   const changeHandler = (e: any) => {

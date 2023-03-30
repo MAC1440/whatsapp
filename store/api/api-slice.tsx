@@ -7,6 +7,6 @@ export const apiSlice = createApi({
       "https://attendance-system-4b852-default-rtdb.asia-southeast1.firebasedatabase.app",
   }),
   // baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3005/" }),
-  tagTypes: ["books", "movies"],
+  tagTypes: ["books", "movies", "users"],
   endpoints: (builder) => ({}),
 });

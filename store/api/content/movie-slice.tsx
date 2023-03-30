@@ -3,16 +3,20 @@ import { apiSlice } from "../api-slice";
 export const moviesSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getMovies: builder.query({
-      // query: (content) => `/content?content=${content}`,
-      //   query: (content) => `/${content}`,
       query: () => "/movies.json",
-      // providesTags: (result: any) =>
-      //   result
-      //     ? [
-      //         ...result?.map(({ id }: any) => ({ type: "movies", id })),
-      //         { type: "movies", id: "movie" },
-      //       ]
-      //     : [{ type: "movies", id: "movie" }],
+      transformResponse: (response: any) => {
+        let loadedMovies = [];
+        for (const key in response) {
+          loadedMovies.push({
+            id: key,
+            name: response[key].name,
+            title: response[key].title,
+          });
+        }
+        console.log(loadedMovies);
+        return loadedMovies;
+      },
+      providesTags: ["movies"],
     }),
     postMovies: builder.mutation({
       query: (body) => ({
@@ -20,7 +24,7 @@ export const moviesSlice = apiSlice.injectEndpoints({
         method: "POST",
         body,
       }),
-      invalidatesTags: [{ type: "movies", id: "movie" }],
+      invalidatesTags: ["movies"],
     }),
     editMovie: builder.mutation({
       query: ({ id, ...body }) => ({
@@ -34,7 +38,7 @@ export const moviesSlice = apiSlice.injectEndpoints({
         url: `/movies/${id}.json`,
         method: "DELETE",
       }),
-      invalidatesTags: [{ type: "movies", id: "movie" }],
+      invalidatesTags: ["movies"],
     }),
   }),
 });

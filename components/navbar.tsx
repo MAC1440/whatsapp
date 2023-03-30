@@ -15,7 +15,7 @@ const Navbar = () => {
           <Link href="/about-us">About Us 👥</Link>
         </li>
         <li className="cursor-pointer">
-          <Link href="/among-us">Among Us 🛸</Link>
+          <Link href="/users">Users 🧍‍♂️🧍‍♂️</Link>
         </li>
         <li className="cursor-pointer">
           <Link href="/api/hello">API ⚙</Link>
