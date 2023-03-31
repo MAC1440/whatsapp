@@ -1,22 +1,22 @@
-import { apiSlice } from "../api-slice";
+import { apiSlice } from "../api/api-slice";
 import { createSlice } from "@reduxjs/toolkit";
 
 const authCheckSlice = createSlice({
   name: "counter",
   initialState: {
-    value: 192,
+    isLoggedIn: false,
   },
   reducers: {
-    incremented: (state) => {
-      state.value += 1;
+    login: (state) => {
+      state.isLoggedIn = true;
     },
-    decremented: (state) => {
-      state.value -= 1;
+    logout: (state) => {
+      state.isLoggedIn = false;
     },
   },
 });
 export default authCheckSlice.reducer;
-export const { incremented, decremented } = authCheckSlice.actions;
+export const { login, logout } = authCheckSlice.actions;
 
 export const authSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

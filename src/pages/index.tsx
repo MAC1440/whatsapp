@@ -1,14 +1,16 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import { Provider } from "react-redux";
-import store from "../store/store";
+import store, { useAppSelector } from "../store/store";
 import LandingPage from "./home";
 import Link from "next/link";
 import Navbar from "@/src/components/navbar";
+import Login from "./login";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const { isLoggedIn } = useAppSelector((state) => state.auth);
   return (
     <Provider store={store}>
       <>
@@ -18,6 +20,8 @@ export default function Home() {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
+        <p>{isLoggedIn}</p>
+        <Login />
         <LandingPage />
       </>
     </Provider>
