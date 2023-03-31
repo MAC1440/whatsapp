@@ -1,4 +1,4 @@
-import Navbar from "@/components/navbar";
+import Navbar from "@/src/components/navbar";
 import { Html, Head, Main, NextScript } from "next/document";
 import Link from "next/link";
 

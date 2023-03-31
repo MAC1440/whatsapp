@@ -1,9 +1,9 @@
+import React, { useState } from "react";
 import {
   useGetBooksQuery,
   usePostBooksMutation,
-} from "@/store/api/content/book-slice";
-import { usePostMoviesMutation } from "@/store/api/content/movie-slice";
-import React, { useState } from "react";
+} from "../store/api/content/book-slice";
+import { usePostMoviesMutation } from "../store/api/content/movie-slice";
 
 const Form = (props: any) => {
   const { title1, title2, apiName } = props;

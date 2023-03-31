@@ -1,14 +1,15 @@
-import Form from "@/components/form";
-import ListView from "@/components/list-view";
+import Form from "@/src/components/form";
+import ListView from "@/src/components/list-view";
 import {
-  useGetBooksQuery,
   useDeleteBookMutation,
-} from "@/store/api/content/book-slice";
+  useGetBooksQuery,
+} from "@/src/store/api/content/book-slice";
 import {
   useDeleteMovieMutation,
   useGetMoviesQuery,
-} from "@/store/api/content/movie-slice";
-import { useAppDispatch, useAppSelector } from "@/store/store";
+} from "@/src/store/api/content/movie-slice";
+import { useAppDispatch } from "@/src/store/store";
+
 import React, { useState } from "react";
 
 const LandingPage = () => {

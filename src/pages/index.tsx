@@ -1,10 +1,10 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import { Provider } from "react-redux";
-import store from "@/store/store";
+import store from "../store/store";
 import LandingPage from "./home";
 import Link from "next/link";
-import Navbar from "@/components/navbar";
+import Navbar from "@/src/components/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
