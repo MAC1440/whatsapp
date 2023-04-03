@@ -10,6 +10,8 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { getDocs, collection, addDoc } from "firebase/firestore";
+import { db } from "../../config/firebase";
 
 const Login = () => {
   const [login, setlogin] = useState({ userName: "", password: "" });
@@ -31,6 +33,36 @@ const Login = () => {
       await signInWithPopup(auth, googleProvider);
     } catch (err) {
       console.log("logorr", err);
+    }
+  };
+
+  const test = async () => {
+    try {
+      const doc_refs = await getDocs(collection(db, "students"));
+      const res: { id: string }[] = [];
+
+      doc_refs.forEach((student) => {
+        res.push({
+          id: student.id,
+          ...student.data(),
+        });
+      });
+      console.log(res);
+    } catch (err) {
+      console.log("fetch error", err);
+    }
+  };
+  const addStudent = async () => {
+    try {
+      await addDoc(collection(db, "students"), {
+        class: 12,
+        field: "Bio",
+        section: "JH",
+        name: "mera apna naam",
+        userId: auth?.currentUser?.uid,
+      });
+    } catch (err) {
+      console.log("fetch error", err);
     }
   };
 
@@ -131,6 +163,8 @@ const Login = () => {
           Status: <span className="text-orange-400">{status}</span>
         </p>
       </div>
+      <button onClick={test}>test</button>
+      <button onClick={addStudent}>addDoc</button>
     </div>
   );
 };
