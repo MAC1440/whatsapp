@@ -9,7 +9,14 @@ import Image from "next/image";
 import React, { useState } from "react";
 import signupImg from "../../../public/planet.jpg";
 
+import { MongoClient } from "mongodb";
+
 const Signup = () => {
+  //mongodb connection.. other setup remains
+  MongoClient.connect(
+    "mongodb+srv://ahmadafzal1440:4blWBoGW275mJxSd@cluster0.isagwgc.mongodb.net/attendanceSystem?retryWrites=true&w=majority"
+  );
+
   const { data: users, isLoading } = useGetUsersQuery({});
   const [setFormData, { isLoading: postLoading }] = usePostUsersMutation();
   const [form, setForm] = useState({
