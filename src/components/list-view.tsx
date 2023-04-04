@@ -11,8 +11,6 @@ const ListView = (props: any) => {
     listType,
   } = props;
 
-  console.log(bookData);
-
   return (
     <div
       style={{ height: "350px", overflowY: "auto", overflowX: "hidden" }}

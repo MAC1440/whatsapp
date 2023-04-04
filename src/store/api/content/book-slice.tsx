@@ -20,7 +20,6 @@ export const bookSlice = apiSlice.injectEndpoints({
             title: response[key].title,
           });
         }
-        console.log(loadedBooks);
         return loadedBooks;
       },
       providesTags: ["books"],
@@ -43,7 +42,7 @@ export const bookSlice = apiSlice.injectEndpoints({
     }),
     deleteBook: builder.mutation({
       query: (id) => ({
-        url: `/books/${id}`,
+        url: `/books?_id=${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["books"],
