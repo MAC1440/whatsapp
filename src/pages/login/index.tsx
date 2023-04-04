@@ -22,7 +22,7 @@ const Login = () => {
   const signIn = async () => {
     try {
       await signInWithEmailAndPassword(auth, login.userName, login.password);
-    } catch (err) {
+    } catch (err: any) {
       console.log("logorr", err.message);
       setStatus(err.message);
     }
@@ -39,7 +39,7 @@ const Login = () => {
   const test = async () => {
     try {
       const doc_refs = await getDocs(collection(db, "students"));
-      const res: { id: string }[] = [];
+      const res: any = [];
 
       doc_refs.forEach((student) => {
         res.push({
@@ -48,6 +48,10 @@ const Login = () => {
         });
       });
       console.log(res);
+      console.log(
+        "Filtered data for current user",
+        res.filter((i: any) => i.userId === auth?.currentUser?.uid)
+      );
     } catch (err) {
       console.log("fetch error", err);
     }

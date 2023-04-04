@@ -9,12 +9,13 @@ export interface IbooksBody {
 export const bookSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getBooks: builder.query({
-      query: () => `/books.json`,
+      // query: () => `/books.json`,
+      query: () => `/books`,
       transformResponse: (response: any) => {
         let loadedBooks = [];
         for (const key in response) {
           loadedBooks.push({
-            id: key,
+            id: response[key]._id,
             name: response[key].name,
             title: response[key].title,
           });
@@ -26,7 +27,8 @@ export const bookSlice = apiSlice.injectEndpoints({
     }),
     postBooks: builder.mutation({
       query: (body) => ({
-        url: `/books.json`,
+        // url: `/books.json`,
+        url: `/books`,
         method: "POST",
         body,
       }),
@@ -34,14 +36,14 @@ export const bookSlice = apiSlice.injectEndpoints({
     }),
     editBook: builder.mutation({
       query: ({ id, ...body }) => ({
-        url: `/books/${id}.json`,
+        url: `/books/${id}`,
         method: "PATCH",
         body,
       }),
     }),
     deleteBook: builder.mutation({
       query: (id) => ({
-        url: `/books/${id}.json`,
+        url: `/books/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["books"],

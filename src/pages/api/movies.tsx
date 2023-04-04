@@ -1,14 +1,30 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { query } = req;
+import { MongoClient } from "mongodb";
 
-  const movies = [
-    { id: 1, name: "Movie 1", director: "Director 1" },
-    { id: 11, name: "Movie 2", director: "Director 2" },
-    { id: 111, name: "Movie 3", director: "Director 3" },
-  ];
-  res.status(200).json(movies);
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const { query } = req;
+  const client = await MongoClient.connect(
+    "mongodb+srv://ahmadafzal1440:4blWBoGW275mJxSd@cluster0.isagwgc.mongodb.net/theMongoDBCollectionByMac?retryWrites=true&w=majority"
+  );
+  const db = client.db();
+  const collection = db.collection("testingMongoDBcollection");
+  //POST method
+  if (req.method === "POST") {
+    const data = req.body;
+    const result = await collection.insertOne(data);
+    console.log(result);
+    client.close();
+    res.status(201).json({ message: "success from BE" });
+  }
+  //GET method
+  else if (req.method === "GET") {
+    const result = await collection.find().toArray();
+    res.status(201).json({ ...result });
+  }
 
   res.status(400).json({ message: "Invalid content parameter" });
 }
