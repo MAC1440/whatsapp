@@ -23,8 +23,8 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, login.userName, login.password);
     } catch (err) {
-      console.log("logorr", err);
-      setStatus("Credentials did not match!");
+      console.log("logorr", err.message);
+      setStatus(err.message);
     }
   };
 
@@ -58,8 +58,8 @@ const Login = () => {
         class: 12,
         field: "Bio",
         section: "JH",
-        name: "mera apna naam",
-        userId: auth?.currentUser?.uid,
+        name: Date.now().toString(),
+        userId: auth?.currentUser?.uid ?? "",
       });
     } catch (err) {
       console.log("fetch error", err);
@@ -163,8 +163,25 @@ const Login = () => {
           Status: <span className="text-orange-400">{status}</span>
         </p>
       </div>
-      <button onClick={test}>test</button>
-      <button onClick={addStudent}>addDoc</button>
+      <div
+        style={{ width: "500px" }}
+        className="flex justify-between items-center"
+      >
+        <button
+          className="mt-4 text-sm rounded-md p-2 
+        bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500  "
+          onClick={test}
+        >
+          test
+        </button>
+        <button
+          className="mt-4 text-sm rounded-md p-2
+        bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500  "
+          onClick={addStudent}
+        >
+          addDoc
+        </button>
+      </div>
     </div>
   );
 };
