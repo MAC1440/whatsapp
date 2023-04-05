@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 
 export default async function handler(
   req: NextApiRequest,
@@ -31,13 +31,16 @@ export default async function handler(
   } else if (req.method === "DELETE") {
     console.log("DELETEE");
 
-    const result = await collection.deleteOne({ query });
-    if (result.deletedCount === 1) {
-      console.log("Document deleted successfully.");
-    } else {
-      console.log("Document not found.");
+    try {
+      const result = await collection.deleteOne({
+        _id: new ObjectId(query._id as string),
+      });
+      console.log("res", result);
+      res.status(201).json({ message: "DELETTTTTed" });
+    } catch {
+      (err: any) => console.log(err);
+      res.status(400).json({ message: "ni hua" });
     }
-    res.status(204).json({ message: "DELETTTTTed" });
     client.close();
   }
 

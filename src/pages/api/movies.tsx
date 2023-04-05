@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 
 export default async function handler(
   req: NextApiRequest,
@@ -24,6 +24,18 @@ export default async function handler(
   else if (req.method === "GET") {
     const result = await collection.find().toArray();
     res.status(201).json({ ...result });
+  } else if (req.method === "DELETE") {
+    try {
+      const result = await collection.deleteOne({
+        _id: new ObjectId(req.body._id as string),
+      });
+      console.log("res", result);
+      res.status(201).json({ message: "DELETTTTTed" });
+    } catch {
+      (err: any) => console.log(err);
+      res.status(400).json({ message: "ni hua" })
+    }
+    client.close();
   }
 
   res.status(400).json({ message: "Invalid content parameter" });
